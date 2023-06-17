@@ -1,4 +1,9 @@
 def call() {
+    if(!sonar_extra_opts) {
+        env.sonar_extra_opts=""
+    }
+
+    
     pipeline {
         agent any
 
