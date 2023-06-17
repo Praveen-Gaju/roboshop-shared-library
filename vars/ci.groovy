@@ -11,6 +11,7 @@ def call() {
 
             stage('Compile/Build') {
                 steps {
+                    sh 'env'
                     script {
                         common.compile()
                     }
@@ -31,6 +32,12 @@ def call() {
                         common.codequality()
                     }
                 }
+            }
+        }
+
+        post {
+            failure {
+                mail body: '${component}-Pipe-Line Failed \n ${BUILD_URL}', cc: '', from: 'praveen.gaju94@gmail.com', replyTo: '', subject: '${component}-Pipe-Line Failed', to: 'praveen.gaju94@gmail.com'
             }
         }
     }
