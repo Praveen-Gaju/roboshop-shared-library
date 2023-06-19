@@ -10,6 +10,7 @@ def call() {
 
             stage('Compile/Build') {
                 steps {
+                    sh 'exit 1'
                     script {
                         common.compile()
                     }
@@ -18,7 +19,6 @@ def call() {
 
             stage('Test Cases') {
                 steps {
-                    sh 'env'
                     script {
                         common.testcases()
                     }
