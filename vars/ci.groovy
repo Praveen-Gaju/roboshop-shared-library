@@ -10,7 +10,6 @@ def call() {
 
             stage('Compile/Build') {
                 steps {
-                    mail bcc: '', body: 'test', cc: '', from: 'praveen.gaju94@gmail.com', replyTo: '', subject: 'test', to: 'praveen.gaju94@gmail.com'
                     script {
                         common.compile()
                     }
@@ -19,6 +18,7 @@ def call() {
 
             stage('Test Cases') {
                 steps {
+                    sh 'env'
                     script {
                         common.testcases()
                     }
@@ -34,5 +34,10 @@ def call() {
             }
         }
 
+        post {
+            failure {
+                mail bcc: '', body: "${component} - Pipe Line Failed /n ${BUILD_URL}", cc: '', from: 'praveen.gaju94@gmail.com', replyTo: '', subject: "${component} - Pipe Line Failed", to: 'praveen.gaju94@gmail.com'
+            }
+        }
     }
 } 
