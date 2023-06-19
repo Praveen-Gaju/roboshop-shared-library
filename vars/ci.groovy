@@ -36,7 +36,7 @@ def call() {
 
         post {
             failure {
-                mail bcc: '', body: "${component} - Pipe Line Failed \n ${BUILD_URL}", cc: '', from: 'praveen.gaju94@gmail.com', replyTo: '', subject: "${component} - Pipe Line Failed", to: 'praveen.gaju94@gmail.com'
+                mail bcc: '', body: "<h1>${component} - Pipe Line Failed \n ${BUILD_URL}</h1>", cc: '', from: 'praveen.gaju94@gmail.com', replyTo: '', subject: "${component} - Pipe Line Failed", to: 'praveen.gaju94@gmail.com', mimeType: 'text/html'
             }
         }
     }
