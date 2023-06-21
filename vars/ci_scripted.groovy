@@ -7,9 +7,21 @@ def call() {
 
         try {
 
-            stage('Compile/Build') {
-                common.compile()
+            stage ('Check Out Code'){
+                sh 'ls -l'
+                CleanWs()
+                sh 'ls-l'
+                git branch: 'main', url: "https://github.com/Praveen-Gaju/cart"
+                sh 'ls -l'
             }
+
+            if (env.BRANCH_NAME != "main"){
+                stage('Compile/Build') {
+                    common.compile()
+                }
+            }
+
+
 
             stage('Test Cases') {
                 common.testcases()
