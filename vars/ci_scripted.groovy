@@ -15,11 +15,13 @@ def call() {
                 sh 'ls -l'
             }
 
-            if (env.BRANCH_NAME != "main"){
-                stage('Compile/Build') {
-                    common.compile()
-                }
+            sh 'env'
+
+
+            stage('Compile/Build') {
+                common.compile()
             }
+
 
 
 
