@@ -10,7 +10,7 @@ def call() {
             stage ('Check Out Code'){
                 sh 'ls -l'
                 cleanWs()
-                sh 'ls-l'
+                sh 'ls -l'
                 git branch: 'main', url: "https://github.com/Praveen-Gaju/cart"
                 sh 'ls -l'
             }
@@ -21,8 +21,6 @@ def call() {
             stage('Compile/Build') {
                 common.compile()
             }
-
-
 
 
             stage('Test Cases') {
