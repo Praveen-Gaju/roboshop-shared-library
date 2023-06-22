@@ -3,16 +3,19 @@ def call() {
         env.sonar_extra_opts = ""
     }
 
+    if (env.TAG_NAME ==~ ".*") {
+        env.GTAG = "true"
+    } else {
+        env.GTAG = "false"
+    }
+
     node('workstation') {
 
         try {
 
             stage ('Check Out Code'){
-                sh 'ls -l'
                 cleanWs()
-                sh 'ls -l'
                 git branch: 'main', url: "https://github.com/Praveen-Gaju/cart"
-                sh 'ls -l'
             }
 
             sh 'env'
@@ -24,11 +27,12 @@ def call() {
                 }
             }
 
-
-
-            stage('Test Cases') {
-                common.testcases()
+            if(env.GTAG != "true" || env.BRANCH_NAME != "main") {
+                stage('Test Cases') {
+                    common.testcases()
+                }
             }
+
 
             stage('Code Quality') {
                 common.codequality()
