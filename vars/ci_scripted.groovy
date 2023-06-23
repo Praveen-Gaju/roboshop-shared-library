@@ -33,10 +33,12 @@ def call() {
                 }
             }
 
-
-            stage('Code Quality') {
-                common.codequality()
+            if(env.BRANCH_NAME ==~ "PR-.*") {
+                stage('Code Quality') {
+                    common.codequality()
+                }
             }
+
 
         } catch (e) {
             mail bcc: '', body: "<h1>${component} - Pipe Line Failed \n ${BUILD_URL}</h1>", cc: '', from: 'praveen.gaju94@gmail.com', replyTo: '', subject: "${component} - Pipe Line Failed", to: 'praveen.gaju94@gmail.com', mimeType: 'text/html'
