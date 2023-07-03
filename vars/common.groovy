@@ -25,9 +25,9 @@ def codequality() {
 def prepareArtifacts() {
     sh 'echo ${TAG_NAME} >VESION'
     if (app_lang == "nodejs") {
-        sh 'zip -r ${component}-${TAG_NAME} server.js node_modules VERSION'
+        sh 'zip -r ${component}-${TAG_NAME}.zip server.js node_modules VERSION'
     }
     if (app_lang == "angular") {
-        sh 'zip -r ${component}-${TAG_NAME}  VERSION'
+        sh 'zip -r ${component}-${TAG_NAME}.zip  VERSION'
     }
 }
