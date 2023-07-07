@@ -15,12 +15,14 @@ def call() {
 
             stage('init') {
                 steps {
+                    sh 'cd aws-prameters; terraform init -backend-config=env-${ENV}/state.tfvars'
                     sh 'terraform init -backend-config=env-${ENV}/state.tfvars'
                 }
             }
 
             stage('apply') {
                 steps {
+                    sh 'cd aws-parameters; terraform apply -auto-approve -var-file=env-${ENV}/main.tfvars'
                     sh 'terraform ${ACTION} -auto-approve -var-file=env-${ENV}/main.tfvars'
                 }
             }
