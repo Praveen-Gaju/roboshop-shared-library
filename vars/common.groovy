@@ -24,7 +24,7 @@ def codequality() {
 
 def prepareArtifacts() {
     sh 'echo ${TAG_NAME} >VERSION'
-    if (app_lang == "nodejs" || app_lang == "angular" || app_lang == "golang") {
+    if (app_lang == "nodejs" || app_lang == "angular" || app_lang == "golang" || app_lang == "python") {
         sh 'zip -r ${component}-${TAG_NAME}.zip * -x Jenkinsfile'
     }
     if (app_lang == "maven") {
