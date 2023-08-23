@@ -23,17 +23,22 @@ def codequality() {
 }
 
 def prepareArtifacts() {
+
+    /*This code is for using nexus
     sh 'echo ${TAG_NAME} >VERSION'
     if (app_lang == "nodejs" || app_lang == "angular" || app_lang == "golang" || app_lang == "python") {
         sh 'zip -r ${component}-${TAG_NAME}.zip * -x Jenkinsfile'
     }
     if (app_lang == "maven") {
         sh 'zip -r ${component}-${TAG_NAME}.zip ${component}.jar schema VERSION'
-    }
+    }*/
+    //for using ECR
+    sh 'docker build -t 699776063346.dkr.ecr.us-east-1.amazonaws.com/${component}:${TAG_NAME} .'
 }
 
 def artifactUpload() {
-   env.NEXUS_USER = sh ( script: 'aws ssm get-parameter --name prod.nexus.username --with-decryption | jq .Parameter.Value | xargs', returnStdout: true ).trim()
+   // artifact upload using nexus
+    /*env.NEXUS_USER = sh ( script: 'aws ssm get-parameter --name prod.nexus.username --with-decryption | jq .Parameter.Value | xargs', returnStdout: true ).trim()
     env.NEXUS_PASS = sh ( script: 'aws ssm get-parameter --name prod.nexus.password --with-decryption | jq .Parameter.Value | xargs', returnStdout: true ).trim()
 
     wrap([$class: 'MaskPasswordsBuildWrapper',
@@ -43,5 +48,7 @@ def artifactUpload() {
         //if (app_lang == "nodejs" || app_lang == "angular") {
         sh 'curl -v -u ${NEXUS_USER}:${NEXUS_PASS} --upload-file ${component}-${TAG_NAME}.zip http://172.31.86.34:8081/repository/${component}/${component}-${TAG_NAME}.zip'
         //}
-    }
+    }*/
+    //artifact upload using ECR
+
 }
